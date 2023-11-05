@@ -390,6 +390,51 @@ fun ScrollContent() {
                 iconName = R.drawable.ic_library
             )
         }
+        /*Modules  section*/
+        item {
+            CustomMenuCard(
+                onClick = {  },
+                title = "Modules",
+                description = "View your modules",
+                iconName = R.drawable.ic_modules
+            )
+        }
+        /*Additional Info  section*/
+        item {
+            CustomMenuCard(
+                onClick = {  },
+                title = "Additional Information",
+                description = "Induction, My Digital Life, and more",
+                iconName = R.drawable.ic_info
+            )
+        }
+        /*Universe  section*/
+        item {
+            CustomMenuCard(
+                onClick = {  },
+                title = "UNIverse",
+                description = "View our  FAQs/raise and enquiry",
+                iconName = R.drawable.ic_universe
+            )
+        }
+        /*stream  section*/
+        item {
+            CustomMenuCard(
+                onClick = {  },
+                title = "StREAM",
+                description = "Your personalised engagement dashboard",
+                iconName = R.drawable.ic_stream
+            )
+        }
+        /*module evaluation  section*/
+        item {
+            CustomMenuCard(
+                onClick = {  },
+                title = "Module Evaluation",
+                description = "Tell us what you think of your modules",
+                iconName = R.drawable.ic_stream
+            )
+        }
     }
 
 }
