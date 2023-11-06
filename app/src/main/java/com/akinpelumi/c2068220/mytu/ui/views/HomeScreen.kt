@@ -100,8 +100,6 @@ fun Home(modifier: Modifier = Modifier) {
 
 @Composable
 fun ScrollContent() {
-    val range = 1..100
-
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 10.dp, vertical = 5.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)){

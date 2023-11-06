@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.akinpelumi.c2068220.mytu.ui.theme.MyTUTheme
 import com.akinpelumi.c2068220.mytu.ui.views.Home
+import com.akinpelumi.c2068220.mytu.ui.views.MyMail
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
