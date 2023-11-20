@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.akinpelumi.c2068220.mytu.ui.theme.MyTUTheme
 import com.akinpelumi.c2068220.mytu.ui.views.Home
 import com.akinpelumi.c2068220.mytu.ui.views.MyMail
+import com.akinpelumi.c2068220.mytu.ui.views.Profile
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Home()
+                    Profile()
                 }
             }
         }
@@ -35,19 +36,4 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun showToast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-}
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MyTUTheme {
-        Greeting("Android")
-    }
 }

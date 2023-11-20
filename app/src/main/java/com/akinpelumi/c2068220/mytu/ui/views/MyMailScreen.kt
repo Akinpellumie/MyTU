@@ -2,12 +2,19 @@ package com.akinpelumi.c2068220.mytu.ui.views
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -18,10 +25,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -88,7 +99,100 @@ fun MyMailContent() {
                 if(showWebView) {
                     showToast(context = context, message = "click to open outlook" )
                 }
+
         }
+        }
+        item {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                Text(buildAnnotatedString {
+                    withStyle(style = SpanStyle(color = MaterialTheme.customColorsPalette.textColor, letterSpacing= TextUnit.Unspecified)) {
+                        append("Use your student login with ")
+                    }
+                    withStyle(style = SpanStyle(color = MaterialTheme.customColorsPalette.textColor, letterSpacing= TextUnit.Unspecified, fontWeight = FontWeight.Bold)) {
+                        append("@live.tees.ac.uk")
+                    }
+                    withStyle(style = SpanStyle(color = MaterialTheme.customColorsPalette.textColor, letterSpacing= TextUnit.Unspecified)) {
+                        append(" at the end, e.g. ")
+                    }
+                    withStyle(style = SpanStyle(color = MaterialTheme.customColorsPalette.textColor, letterSpacing= TextUnit.Unspecified, fontWeight = FontWeight.Bold)) {
+                        append("A1234567@live.tees.ac.uk")
+                    }
+                })
+                Text(text = "What should you expect?",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.customColorsPalette.textColor,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(text = "Your email account is web based and can be accessed via any web browser or the Outlook App\n" +
+                        "All university correspondence will go to your student email address.\n" +
+                        "Your email address will close when you leave the University",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.customColorsPalette.textColor,
+                    fontWeight = FontWeight.Normal
+                )
+                Text(text = "Information and Support",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.customColorsPalette.textColor,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(text = "If you have questions or need help please email",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.customColorsPalette.textColor,
+                    fontWeight = FontWeight.Normal
+                )
+            }
+
+        }
+    item {
+        val context = LocalContext.current
+        var openTeesHelp by remember { mutableStateOf (false) }
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            ClickableText(
+                text = AnnotatedString("ithelp@tees.ac.uk.") ,
+                style = TextStyle(color = MaterialTheme.customColorsPalette.linkTextColor, fontWeight = FontWeight.Bold, fontSize = TextUnit.Unspecified),
+                onClick = {
+                    openTeesHelp = true
+                }
+            )
+
+            ClickableText(
+                text = AnnotatedString("Self Help guides") ,
+                style = TextStyle(color = MaterialTheme.customColorsPalette.linkTextColor, fontWeight = FontWeight.Bold, fontSize = TextUnit.Unspecified),
+                onClick = {
+                    //openTeesHelp = true
+                }
+            )
+            ClickableText(
+                text = AnnotatedString("Connect your Mobile Phone") ,
+                style = TextStyle(color = MaterialTheme.customColorsPalette.linkTextColor, fontWeight = FontWeight.Bold, fontSize = TextUnit.Unspecified),
+                onClick = {
+                    //openTeesHelp = true
+                    //showToast(context = context, message = "opening tees.ac.uk website." )
+                }
+            )
+        }
+
+        if(openTeesHelp) {
+            showToast(context = context, message = "opening tees.ac.uk website." )
+        }
+    }
+        item {  Spacer(modifier = Modifier.height(20.dp))  }
+        item {
+            Button(
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.customColorsPalette.primaryColor),
+                shape = RoundedCornerShape(10.dp),
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
+                //goto outlook mail 
+                }) {
+                Text(
+                    text = "Go To MyMail",
+                    color = MaterialTheme.customColorsPalette.white,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
         }
     }
 }
