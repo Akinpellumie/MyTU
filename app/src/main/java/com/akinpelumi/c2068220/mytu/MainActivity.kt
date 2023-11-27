@@ -11,6 +11,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.akinpelumi.c2068220.mytu.ui.theme.MyTUTheme
+import com.akinpelumi.c2068220.mytu.ui.views.MainScreen
 import com.akinpelumi.c2068220.mytu.ui.views.ProfileScreen
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ProfileScreen()
+                    MainScreen()
                 }
             }
         }

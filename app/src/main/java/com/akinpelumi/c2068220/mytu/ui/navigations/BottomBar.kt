@@ -1,15 +1,18 @@
 package com.akinpelumi.c2068220.mytu.ui.navigations
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material.*
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalAbsoluteTonalElevation
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavDestination
@@ -18,7 +21,6 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.akinpelumi.c2068220.mytu.ui.theme.customColorsPalette
-import com.akinpelumi.c2068220.mytu.ui.views.BottomNavigation
 
 @Composable
 fun BottomBar (navController: NavHostController){
@@ -32,29 +34,15 @@ fun BottomBar (navController: NavHostController){
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    BottomNavigation {
-        screens.forEach { screen ->
-            AddItem(
-                screen = screen,
-                currentDestination = currentDestination,
-                navController = navController
-            )
+    NavigationBar(containerColor = MaterialTheme.customColorsPalette.white){
+        screens.forEach {screen->
+            AddItem(screen = screen,
+                currentDestination = currentDestination ,
+                navController = navController )
         }
     }
 }
 
-//@Composable
-//fun RowScope.AddItem(
-//    screen: BottomBarScreen,
-//    currentDestination: NavDestination?,
-//    navController: NavHostController
-//){
-//    BottomNavigationItem( icon = { screen(painterResource(id = screen.icon), contentDescription = screen.title) },
-//        label = { Text(text = screen.title,
-//            fontSize = 9.sp) },){
-//
-//    }
-//}
 @Composable
 fun RowScope.AddItem(
     screen: BottomBarScreen,
@@ -72,7 +60,7 @@ fun RowScope.AddItem(
         colors = NavigationBarItemDefaults.colors(
             selectedIconColor = MaterialTheme.customColorsPalette.primaryColor,
             selectedTextColor = MaterialTheme.customColorsPalette.primaryColor,
-            indicatorColor = Color.Transparent,
+            indicatorColor = MaterialTheme.colorScheme.surfaceColorAtElevation(LocalAbsoluteTonalElevation.current),
             unselectedIconColor = MaterialTheme.customColorsPalette.secondaryColor,
             unselectedTextColor = MaterialTheme.customColorsPalette.secondaryColor,
             ),
