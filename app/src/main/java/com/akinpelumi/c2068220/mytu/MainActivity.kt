@@ -8,14 +8,10 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.akinpelumi.c2068220.mytu.ui.theme.MyTUTheme
-import com.akinpelumi.c2068220.mytu.ui.views.Home
-import com.akinpelumi.c2068220.mytu.ui.views.MyMail
-import com.akinpelumi.c2068220.mytu.ui.views.Profile
+import com.akinpelumi.c2068220.mytu.ui.views.ProfileScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +23,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Profile()
+                    ProfileScreen()
                 }
             }
         }

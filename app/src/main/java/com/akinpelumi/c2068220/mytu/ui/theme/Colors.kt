@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 @Immutable
 data class CustomColorsPalette(
     val primaryColor: Color = Color(0xFFDF6B0B),
+    val secondaryColor: Color = Color(0xFF666666),
     val altIconColor: Color = Color(0xFFF0B073),
     val linkTextColor: Color = Color(0xFF427BB5),
     val borderColor: Color = Color(0xFFD2D2D2),

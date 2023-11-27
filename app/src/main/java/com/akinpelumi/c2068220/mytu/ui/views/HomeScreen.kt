@@ -1,7 +1,5 @@
 package com.akinpelumi.c2068220.mytu.ui.views
 
-import android.graphics.fonts.FontFamily
-import android.widget.ImageView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -9,8 +7,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,11 +27,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -47,11 +41,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.akinpelumi.c2068220.mytu.R
 import com.akinpelumi.c2068220.mytu.ui.components.CustomAppBarPreview
@@ -59,27 +50,10 @@ import com.akinpelumi.c2068220.mytu.ui.components.CustomMenuCard
 import com.akinpelumi.c2068220.mytu.ui.theme.customColorsPalette
 
 
-//@Composable
-//fun HomeScreen() {
-//    // 1
-//    Column(modifier = Modifier.fillMaxSize()) {
-//        // 2
-//        TopAppBar(title = {
-////            Text(
-////                text = "Hello ",
-////                modifier = modifier
-////            )
-//        })
-//        // 3
-//        //RecipeList(defaultRecipes)
-//    }
-//
-//}
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Home(modifier: Modifier = Modifier) {
+fun HomeScreen(modifier: Modifier = Modifier) {
     Scaffold(
         topBar = { CustomAppBarPreview() },
     ) {
@@ -93,13 +67,13 @@ fun Home(modifier: Modifier = Modifier) {
             //.padding(it) // <<-- or simply this
         ) {
             // Your content
-            ScrollContent()
+            HomeContent()
         }
     }
 }
 
 @Composable
-fun ScrollContent() {
+fun HomeContent() {
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 10.dp, vertical = 5.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)){
@@ -441,6 +415,6 @@ fun ScrollContent() {
 @Composable
 fun HomePreview() {
     MyTUTheme {
-        Home()
+        HomeScreen()
     }
 }

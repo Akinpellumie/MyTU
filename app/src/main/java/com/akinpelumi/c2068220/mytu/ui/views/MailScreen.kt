@@ -25,7 +25,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -44,7 +43,7 @@ import com.akinpelumi.c2068220.mytu.ui.theme.customColorsPalette
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyMail(modifier: Modifier = Modifier){
+fun MailScreen(modifier: Modifier = Modifier){
     Scaffold(
         topBar = { CustomAppBarPreview() },
     ) {
@@ -58,14 +57,14 @@ fun MyMail(modifier: Modifier = Modifier){
             //.padding(it) // <<-- or simply this
         ) {
             // Your content
-            MyMailContent()
+            MailContent()
         }
     }
 }
 
 
 @Composable
-fun MyMailContent() {
+fun MailContent() {
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 10.dp, vertical = 5.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -201,6 +200,6 @@ fun MyMailContent() {
 @Composable
 fun MyMailPreview() {
     MyTUTheme {
-        MyMail()
+        MailScreen()
     }
 }
