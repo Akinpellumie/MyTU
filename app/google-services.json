@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1006781693646",
+    "project_id": "mytuapp-a683d",
+    "storage_bucket": "mytuapp-a683d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006781693646:android:20e588da60af72d5401a9f",
+        "android_client_info": {
+          "package_name": "com.akinpelumi.c2068220.mytu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClNFgBlDgrZEoDM4h6FoKMiA1rGidbFvM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
