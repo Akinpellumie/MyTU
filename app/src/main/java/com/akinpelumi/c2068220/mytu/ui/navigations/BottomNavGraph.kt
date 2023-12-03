@@ -4,11 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.akinpelumi.c2068220.mytu.ui.views.AlertScreen
-import com.akinpelumi.c2068220.mytu.ui.views.CalendarScreen
-import com.akinpelumi.c2068220.mytu.ui.views.HomeScreen
-import com.akinpelumi.c2068220.mytu.ui.views.MailScreen
-import com.akinpelumi.c2068220.mytu.ui.views.ProfileScreen
+import com.akinpelumi.c2068220.mytu.ui.views.alert.AlertScreen
+import com.akinpelumi.c2068220.mytu.ui.views.calendar.CalendarScreen
+import com.akinpelumi.c2068220.mytu.ui.views.home.HomeScreen
+import com.akinpelumi.c2068220.mytu.ui.views.mail.MailScreen
+import com.akinpelumi.c2068220.mytu.ui.views.profile.ProfileScreen
 
 @Composable
 fun BottomNavGraph(navController: NavHostController) {

@@ -1,4 +1,4 @@
-package com.akinpelumi.c2068220.mytu.ui.views
+package com.akinpelumi.c2068220.mytu.ui.views.alert
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

@@ -1,4 +1,4 @@
-package com.akinpelumi.c2068220.mytu.ui.views
+package com.akinpelumi.c2068220.mytu.ui.views.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
