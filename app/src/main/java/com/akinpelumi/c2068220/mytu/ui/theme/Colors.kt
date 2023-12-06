@@ -18,7 +18,9 @@ data class CustomColorsPalette(
     val descColor: Color = Color(0xFF424549),
     val itemBgColor: Color = Color(0xFFF8F9FA),
     val iconBgColor: Color = Color(0xFF6C757D),
-    val white: Color = Color(0xFFFFFFFF)
+    val white: Color = Color(0xFFFFFFFF),
+    val accentColor: Color = Color(0xFF262626),
+    val redVariantColor: Color = Color(0xFFED2939)
 )
 val MaterialTheme.customColorsPalette: CustomColorsPalette
     @Composable

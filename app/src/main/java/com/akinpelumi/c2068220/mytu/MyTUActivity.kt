@@ -14,14 +14,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 
-package com.akinpelumi.c2068220.mytu.service.impl
+package com.akinpelumi.c2068220.mytu
 
-import com.akinpelumi.c2068220.mytu.service.LogService
-import com.google.firebase.Firebase
-import com.google.firebase.crashlytics.crashlytics
-import javax.inject.Inject
+import android.os.Bundle
+import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
+import com.akinpelumi.c2068220.mytu.base.MyTUApp
+import dagger.hilt.android.AndroidEntryPoint
 
-class LogServiceImpl @Inject constructor() : LogService {
-  override fun logNonFatalCrash(throwable: Throwable) =
-    Firebase.crashlytics.recordException(throwable)
+@AndroidEntryPoint
+class MyTUActivity : AppCompatActivity() {
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    setContent { MyTUApp() }
+  }
 }

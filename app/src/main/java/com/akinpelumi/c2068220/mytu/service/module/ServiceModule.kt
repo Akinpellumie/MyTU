@@ -2,8 +2,10 @@
 package com.akinpelumi.c2068220.mytu.service.module
 
 import com.akinpelumi.c2068220.mytu.service.AccountService
+import com.akinpelumi.c2068220.mytu.service.ConfigurationService
 import com.akinpelumi.c2068220.mytu.service.LogService
 import com.akinpelumi.c2068220.mytu.service.impl.AccountServiceImpl
+import com.akinpelumi.c2068220.mytu.service.impl.ConfigurationServiceImpl
 import com.akinpelumi.c2068220.mytu.service.impl.LogServiceImpl
 import dagger.Binds
 import dagger.Module
@@ -16,5 +18,7 @@ abstract class ServiceModule {
   @Binds abstract fun provideAccountService(impl: AccountServiceImpl): AccountService
 
   @Binds abstract fun provideLogService(impl: LogServiceImpl): LogService
+  @Binds
+  abstract fun provideConfigurationService(impl: ConfigurationServiceImpl): ConfigurationService
 
 }

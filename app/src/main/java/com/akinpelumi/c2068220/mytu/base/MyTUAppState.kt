@@ -1,20 +1,11 @@
-package com.akinpelumi.c2068220.mytu
+package com.akinpelumi.c2068220.mytu.base
 
 import android.content.res.Resources
-import androidx.compose.foundation.layout.BoxScopeInstance.align
-import androidx.compose.foundation.layout.ColumnScopeInstance.align
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Snackbar
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Stable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.akinpelumi.c2068220.mytu.common.snackbar.SnackbarManager
 import com.akinpelumi.c2068220.mytu.common.snackbar.SnackbarMessage.Companion.toMessage
+import com.akinpelumi.c2068220.mytu.showToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
@@ -22,6 +13,7 @@ import kotlinx.coroutines.launch
 @Stable
 class MyTUAppState(
   //val scaffoldState: ScaffoldState,
+  //private val context: ApplicationContext.
   val navController: NavHostController,
   private val snackbarManager: SnackbarManager,
   private val resources: Resources,
@@ -31,8 +23,11 @@ class MyTUAppState(
     coroutineScope.launch {
       snackbarManager.snackbarMessages.filterNotNull().collect { snackbarMessage ->
         val text = snackbarMessage.toMessage(resources)
-        scaffoldState.snackbarHostState.showSnackbar(text)
-        snackbarManager.clearSnackbarState()
+        //Toast.makeText(context, text,Toast.LENGTH_LONG).show()
+        println(text)
+//        showToast(context = , message = )
+//        scaffoldState.snackbarHostState.showSnackbar(text)
+//        snackbarManager.clearSnackbarState()
       }
     }
   }

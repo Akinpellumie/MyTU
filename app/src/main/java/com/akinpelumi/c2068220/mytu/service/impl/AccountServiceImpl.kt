@@ -4,6 +4,7 @@ package com.akinpelumi.c2068220.mytu.service.impl
 import com.akinpelumi.c2068220.mytu.service.AccountService
 import com.akinpelumi.c2068220.mytu.model.User
 import com.akinpelumi.c2068220.mytu.service.trace
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import javax.inject.Inject
@@ -13,7 +14,8 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
 class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth) : AccountService {
-
+  //private lateinit var auth: FirebaseAuth = FirebaseApp.initializeApp();
+  //FirebaseApp.initializeApp();
   override val currentUserId: String
     get() = auth.currentUser?.uid.orEmpty()
 
@@ -31,7 +33,8 @@ class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth) : A
     }
 
   override suspend fun authenticate(email: String, password: String) {
-    auth.signInWithEmailAndPassword(email, password).await()
+    var result = auth.signInWithEmailAndPassword(email, password).await()
+    println(result)
   }
 
   override suspend fun sendRecoveryEmail(email: String) {

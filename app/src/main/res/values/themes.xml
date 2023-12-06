@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.MyTU" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.MyTU" parent="Theme.AppCompat.Light.NoActionBar" >
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/secondary</item>>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" >@color/primary_dark</item>
+        <item name="android:navigationBarColor">@color/primary_dark</item>
+    </style>
 </resources>

@@ -14,7 +14,7 @@ import com.akinpelumi.c2068220.mytu.common.composables.*
 import com.akinpelumi.c2068220.mytu.common.ext.basicButton
 import com.akinpelumi.c2068220.mytu.common.ext.fieldModifier
 import com.akinpelumi.c2068220.mytu.ui.theme.MyTUTheme
-import com.akinpelumi.c2068220.mytu.viewmodel.auth.signup.SignUpViewModel
+import com.akinpelumi.c2068220.mytu.viewmodel.SignUpViewModel
 
 @Composable
 fun SignUpScreen(

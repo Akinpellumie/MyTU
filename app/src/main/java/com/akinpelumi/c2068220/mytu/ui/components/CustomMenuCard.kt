@@ -35,7 +35,7 @@ fun CustomMenuCard(
         modifier = Modifier
             .padding(horizontal = 2.dp, vertical = 2.dp)
             .fillMaxWidth()
-            .height(70.dp).clickable { onClick },
+            .height(70.dp).clickable { onClick() },
         colors= CardDefaults.cardColors(containerColor = MaterialTheme.customColorsPalette.itemBgColor),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         shape = RoundedCornerShape(corner = CornerSize(10.dp))

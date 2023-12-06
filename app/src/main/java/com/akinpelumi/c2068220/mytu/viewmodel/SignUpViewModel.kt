@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 
-package com.akinpelumi.c2068220.mytu.viewmodel.auth.signup
+package com.akinpelumi.c2068220.mytu.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import com.akinpelumi.c2068220.mytu.common.ext.isValidEmail

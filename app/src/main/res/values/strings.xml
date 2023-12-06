@@ -13,6 +13,8 @@
     <!-- LoginScreen -->
     <string name="sign_in">Sign in</string>
     <string name="login_details">Enter your login details</string>
+    <string name="signup">New here? Create Account</string>
+    <string name="continueWith">Continue with;</string>
     <string name="forgot_password">Forgot password? Click to get recovery email</string>
     <string name="recovery_email_sent">Check your inbox for the recovery email.</string>
     <string name="empty_password_error">Password cannot be empty.</string>
@@ -22,10 +24,9 @@
     <string name="password_error">Your password should have at least six digits and include one digit, one lower case letter and one upper case letter.</string>
     <string name="password_match_error">Passwords do not match.</string>
 
-    <!-- FCM -->
-    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
-    <string name="request_notification_permission">Request permission</string>
-    <string name="notification_permission_title">Notification permission</string>
-    <string name="notification_permission_description">The notification permission is important for this app. Please grant the permission.</string>
-    <string name="notification_permission_settings">The notification permission is important for this app. Please navigate to your device settings and enable notifications for Make it So.</string>
+<!--    Location Permissions-->
+    <string name="location_permission_title">Location permission</string>
+    <string name="request_location_permission">Request permission</string>
+    <string name="location_permission_description">The location permission is important for this app. Please grant the permission.</string>
+    <string name="location_permission_settings">The location permission is important for this app. Please navigate to your device settings and enable location for MyTU.</string>
 </resources>
