@@ -2,12 +2,18 @@
 package com.akinpelumi.c2068220.mytu.ui.views.auth.login
 
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Warning
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -87,7 +94,7 @@ val context = LocalContext.current
       onSignUpClick()
     }
     Spacer(modifier = Modifier.height(30.dp))
-    Text(text = "OR,",
+    Text(text = "OR",
       modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
       style = MaterialTheme.typography.bodyMedium,
       color = MaterialTheme.customColorsPalette.textColor,
@@ -95,24 +102,50 @@ val context = LocalContext.current
     )
     Spacer(modifier = Modifier.height(10.dp))
 
-    Row {
-      Text(text = "Continue With",
-        style = MaterialTheme.typography.bodyMedium,
-        color = MaterialTheme.customColorsPalette.textColor,
+//    Row {
+//      Text(text = "Continue With",
+//        style = MaterialTheme.typography.bodyMedium,
+//        color = MaterialTheme.customColorsPalette.textColor,
+//        modifier = Modifier
+//          .padding(horizontal = 5.dp)
+//          .align(alignment = Alignment.CenterVertically)
+//      )
+//      IconButton(onClick = { /* do something */ }) {
+//        Icon(
+//          painter = painterResource(id = R.drawable.ic_google), // Replace with your logo resource
+//          contentDescription = "google", // Set contentDescription to null for accessibility
+//          tint = Color.Unspecified,
+//          modifier = Modifier
+//            .width(50.dp)
+//            .height(50.dp)
+//        )
+//      }
+//    }
+    OutlinedButton(
+      onClick = { },
+      modifier = Modifier.fillMaxWidth().padding(20.dp),
+      border = BorderStroke(1.dp, MaterialTheme.customColorsPalette.accentColor),
+      shape = RoundedCornerShape(30.dp),
+      colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.customColorsPalette.accentColor)
+    ){
+      Icon(
+        painter = painterResource(id = R.drawable.ic_google),
+        contentDescription = "google",
+        tint = Color.Unspecified,
         modifier = Modifier
-          .padding(horizontal = 5.dp)
-          .align(alignment = Alignment.CenterVertically)
+          .width(40.dp)
+          .height(40.dp)
       )
-      IconButton(onClick = { /* do something */ }) {
-        Icon(
-          painter = painterResource(id = R.drawable.ic_google), // Replace with your logo resource
-          contentDescription = "google", // Set contentDescription to null for accessibility
-          tint = Color.Unspecified,
-          modifier = Modifier
-            .width(50.dp)
-            .height(50.dp)
-        )
-      }
+      Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
+      Text(
+        text = "Continue With Google",
+        style = MaterialTheme.typography.bodyLarge,
+        fontWeight = FontWeight.Normal,
+        modifier = Modifier
+          .weight(1f)
+          .offset(x = 20.dp),
+        color = MaterialTheme.customColorsPalette.accentColor
+      )
     }
   }
 }

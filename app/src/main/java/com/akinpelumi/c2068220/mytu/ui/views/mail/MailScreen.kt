@@ -69,7 +69,8 @@ fun MailContent() {
         contentPadding = PaddingValues(horizontal = 10.dp, vertical = 5.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ){
-        item {  Text(text = "Teesside University provides all students with email facilities",
+        item {
+            Text(text = "Teesside University provides all students with email facilities",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.customColorsPalette.textColor,
             )

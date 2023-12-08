@@ -51,6 +51,7 @@ import com.akinpelumi.c2068220.mytu.ui.components.CustomMenuCard
 import com.akinpelumi.c2068220.mytu.ui.theme.customColorsPalette
 import com.akinpelumi.c2068220.mytu.viewmodel.HomeViewModel
 import com.akinpelumi.c2068220.mytu.viewmodel.LoginViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,7 +60,14 @@ fun HomeScreen(
     navigateTo: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    HomeScreenContent(onAttendanceClick = {viewModel.onMyAttendanceClick(navigateTo)})
+    HomeScreenContent(
+        onAttendanceClick = {viewModel.onMyAttendanceClick(navigateTo)},
+        onTimetableClick = {viewModel.onTimetableClick(navigateTo)},
+        onLibraryClick = {viewModel.onLibraryClick(navigateTo)},
+        onBalanceClick = {viewModel.onBalanceClick(navigateTo)},
+        onModuleClick = {viewModel.onModuleClick(navigateTo)},
+        onToDoClick = {viewModel.onToDoClick(navigateTo)},
+    )
 //    Scaffold(
 //        topBar = { CustomAppBarPreview() },
 //    ) {
@@ -80,7 +88,14 @@ fun HomeScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreenContent(onAttendanceClick: () -> Unit,) {
+fun HomeScreenContent(
+    onAttendanceClick: () -> Unit,
+    onTimetableClick: () -> Unit,
+    onLibraryClick: () -> Unit,
+    onBalanceClick: () -> Unit,
+    onModuleClick: () -> Unit,
+    onToDoClick: () -> Unit,
+) {
     Scaffold(
         topBar = { CustomAppBarPreview() },
     ) {
@@ -211,15 +226,18 @@ fun HomeScreenContent(onAttendanceClick: () -> Unit,) {
                                                         fontWeight = FontWeight.Bold,
                                                     )
                                                 }
+                                                Spacer(modifier = Modifier.height(10.dp))
                                                 Text(
                                                     text = "CIS4008-N IT Lab(OL9)",
                                                     style = typography.titleMedium,
                                                     fontWeight = FontWeight.Bold,
                                                 )
+                                                Spacer(modifier = Modifier.height(10.dp))
                                                 Text(
                                                     text = "Big Data and Business Intelligence - IT Lab. This event takes place in OL9, on the 1st Floor of the Europa Building.",
                                                     style = MaterialTheme.typography.bodyMedium,
                                                 )
+                                                Spacer(modifier = Modifier.height(10.dp))
                                                 Row {
                                                     Text(
                                                         text = "Campus Map",
@@ -237,7 +255,7 @@ fun HomeScreenContent(onAttendanceClick: () -> Unit,) {
                                                             )
                                                             .height(20.dp)
                                                             .width(20.dp)
-                                                            .padding(start = 5.dp)
+                                                            .padding(start = 15.dp)
                                                     )
                                                 }
                                             }
@@ -339,21 +357,17 @@ fun HomeScreenContent(onAttendanceClick: () -> Unit,) {
                     Spacer(modifier = Modifier.padding(bottom = 5.dp)) }
                 /*my attendance section*/
                 item {
-                    Box (
-                        modifier = Modifier.clickable { onAttendanceClick() }
-                    ){
-                        CustomMenuCard(
-                            onClick = { onAttendanceClick() },
-                            title = "My Attendance",
-                            description = "Record your class attendance",
-                            iconName = R.drawable.ic_calendar_check
-                        )
-                    }
+                    CustomMenuCard(
+                        onClick = { onAttendanceClick()},
+                        title = "My Attendance",
+                        description = "Record your class attendance",
+                        iconName = R.drawable.ic_calendar_check
+                    )
                 }
                 /*timetable section*/
                 item {
                     CustomMenuCard(
-                        onClick = {  },
+                        onClick = {  onTimetableClick() },
                         title = "Timetable",
                         description = "View your class timetable",
                         iconName = R.drawable.ic_calendar_month
@@ -362,7 +376,7 @@ fun HomeScreenContent(onAttendanceClick: () -> Unit,) {
                 /*To Do  section*/
                 item {
                     CustomMenuCard(
-                        onClick = {  },
+                        onClick = { onToDoClick() },
                         title = "To Do",
                         description = "View outstanding tasks and reminders",
                         iconName = R.drawable.ic_list_task
@@ -371,7 +385,7 @@ fun HomeScreenContent(onAttendanceClick: () -> Unit,) {
                 /*Fee/Balance  section*/
                 item {
                     CustomMenuCard(
-                        onClick = {  },
+                        onClick = { onBalanceClick() },
                         title = "Balances",
                         description = "View your University balances",
                         iconName = R.drawable.ic_cash
@@ -380,7 +394,7 @@ fun HomeScreenContent(onAttendanceClick: () -> Unit,) {
                 /*Library  section*/
                 item {
                     CustomMenuCard(
-                        onClick = {  },
+                        onClick = { onLibraryClick() },
                         title = "Library",
                         description = "View your library loans and reservations",
                         iconName = R.drawable.ic_library
@@ -389,7 +403,7 @@ fun HomeScreenContent(onAttendanceClick: () -> Unit,) {
                 /*Modules  section*/
                 item {
                     CustomMenuCard(
-                        onClick = {  },
+                        onClick = {  onModuleClick() },
                         title = "Modules",
                         description = "View your modules",
                         iconName = R.drawable.ic_modules
@@ -431,6 +445,9 @@ fun HomeScreenContent(onAttendanceClick: () -> Unit,) {
                         iconName = R.drawable.ic_stream
                     )
                 }
+                item{
+                    Spacer(modifier = Modifier.height(100.dp))
+                }
             }
         }
     }
@@ -442,6 +459,13 @@ fun HomeScreenContent(onAttendanceClick: () -> Unit,) {
 @Composable
 fun HomePreview() {
     MyTUTheme {
-        HomeScreenContent(onAttendanceClick = {})
+        HomeScreenContent(
+            onAttendanceClick = {},
+            onTimetableClick = {},
+            onLibraryClick = {},
+            onBalanceClick = {},
+            onModuleClick = {},
+            onToDoClick = {}
+        )
     }
 }

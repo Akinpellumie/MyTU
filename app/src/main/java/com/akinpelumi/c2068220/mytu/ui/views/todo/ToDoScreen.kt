@@ -1,4 +1,4 @@
-package com.akinpelumi.c2068220.mytu.ui.views.alert
+package com.akinpelumi.c2068220.mytu.ui.views.todo
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -29,6 +29,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -43,16 +45,35 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.akinpelumi.c2068220.mytu.R
-import com.akinpelumi.c2068220.mytu.ui.components.CustomAppBarPreview
 import com.akinpelumi.c2068220.mytu.ui.theme.MyTUTheme
 import com.akinpelumi.c2068220.mytu.ui.theme.customColorsPalette
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AlertScreen(modifier: Modifier = Modifier){
+fun ToDoScreen(){
     Scaffold(
-        topBar = { CustomAppBarPreview() },
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "To-Do List",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.customColorsPalette.textColor,
+                    )},
+                navigationIcon = {
+                    // Add your logo here
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_left), // Replace with your logo resource
+                        contentDescription = "logo", // Set contentDescription to null for accessibility
+                        tint = Color.Unspecified,
+                        modifier = Modifier
+                            .width(24.dp)
+                            .height(24.dp)
+                    )
+                },
+                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = MaterialTheme.customColorsPalette.white)
+            )
+        }
     ) {
         Box(
             modifier = Modifier
@@ -64,14 +85,14 @@ fun AlertScreen(modifier: Modifier = Modifier){
             //.padding(it) // <<-- or simply this
         ) {
             // Your content
-            AlertContent()
+            ToDoScreenContent()
         }
     }
 }
 
 
 @Composable
-fun AlertContent() {
+fun ToDoScreenContent() {
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 10.dp, vertical = 5.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -339,17 +360,19 @@ fun AlertContent() {
                 text = "Note: Tasks on your To-Do list should disappear within a few hours of being resolved within source system.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.customColorsPalette.textColor,
-                modifier = Modifier.padding(start = 10.dp, top = 30.dp, end = 10.dp, bottom = 60.dp)
+                modifier = Modifier.padding(start = 10.dp, top = 40.dp, end = 10.dp,)
             )
         }
-
+        item{
+            Spacer(modifier = Modifier.height(100.dp))
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun AlertScreenPreview() {
+fun ToDoScreenPreview() {
     MyTUTheme {
-        AlertScreen()
+        ToDoScreen()
     }
 }
