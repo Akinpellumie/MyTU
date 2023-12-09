@@ -32,7 +32,7 @@ class MyTUAppState(
     }
   }
 
-  fun popUp() {
+  fun navigateBack() {
     navController.popBackStack()
   }
 

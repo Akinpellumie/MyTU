@@ -10,10 +10,12 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -30,6 +32,7 @@ import com.akinpelumi.c2068220.mytu.R
 import com.akinpelumi.c2068220.mytu.viewmodel.LoginViewModel
 import com.akinpelumi.c2068220.mytu.R.string as AppText
 import com.akinpelumi.c2068220.mytu.common.composables.*
+import com.akinpelumi.c2068220.mytu.common.ext.Utils.Companion.showToastMessage
 import com.akinpelumi.c2068220.mytu.common.ext.basicButton
 import com.akinpelumi.c2068220.mytu.common.ext.fieldModifier
 import com.akinpelumi.c2068220.mytu.common.ext.textButton
@@ -37,21 +40,44 @@ import com.akinpelumi.c2068220.mytu.showToast
 import com.akinpelumi.c2068220.mytu.ui.theme.MyTUTheme
 import com.akinpelumi.c2068220.mytu.ui.theme.customColorsPalette
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
-  openAndPopUp: (String, String) -> Unit,
-  clearAndNavigate: (String) -> Unit,
+//  openAndPopUp: (String, String) -> Unit,
+//  clearAndNavigate: (String) -> Unit,
+  navigateToForgotPasswordScreen: () -> Unit,
+  navigateToSignUpScreen: () -> Unit,
   viewModel: LoginViewModel = hiltViewModel()
 ) {
   val uiState by viewModel.uiState
+  val context = LocalContext.current
 
-  LoginScreenContent(
-    uiState = uiState,
-    onEmailChange = viewModel::onEmailChange,
-    onPasswordChange = viewModel::onPasswordChange,
-    onSignInClick = { viewModel.onSignInClick(clearAndNavigate) },
-    onSignUpClick = { viewModel.onSignUpClick(openAndPopUp) },
-    onForgotPasswordClick = viewModel::onForgotPasswordClick
+  Scaffold(
+    content = {
+      Box(
+        modifier = Modifier
+          .fillMaxSize()
+          .padding(
+            top = it.calculateTopPadding(),
+            bottom = it.calculateBottomPadding()
+          )
+      ) {
+        LoginScreenContent(
+        uiState = uiState,
+        onEmailChange = viewModel::onEmailChange,
+        onPasswordChange = viewModel::onPasswordChange,
+        onSignInClick = { viewModel.onSignInClick() },
+        onSignUpClick = navigateToSignUpScreen,
+        onForgotPasswordClick = navigateToForgotPasswordScreen
+      )
+      }
+    }
+  )
+
+  SignIn(
+    showErrorMessage = { errorMessage ->
+      showToastMessage(context, errorMessage)
+    }
   )
 }
 
@@ -96,7 +122,7 @@ val context = LocalContext.current
     Spacer(modifier = Modifier.height(30.dp))
     Text(text = "OR",
       modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-      style = MaterialTheme.typography.bodyMedium,
+      style = MaterialTheme.typography.headlineMedium,
       color = MaterialTheme.customColorsPalette.textColor,
       //modifier = Modifier.padding(vertical = 5.dp)
     )

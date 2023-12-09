@@ -1,32 +1,28 @@
 
 package com.akinpelumi.c2068220.mytu.viewmodel
 
-import android.os.Parcel
-import android.os.Parcelable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewModelScope
 import com.akinpelumi.c2068220.mytu.common.ext.isValidEmail
 import com.akinpelumi.c2068220.mytu.common.snackbar.SnackbarManager
-import com.akinpelumi.c2068220.mytu.service.AccountService
+import com.akinpelumi.c2068220.mytu.domain.model.Response
+import com.akinpelumi.c2068220.mytu.domain.repository.AuthRepository
+import com.akinpelumi.c2068220.mytu.domain.repository.SignInResponse
 import com.akinpelumi.c2068220.mytu.service.LogService
-import com.akinpelumi.c2068220.mytu.showToast
-import com.akinpelumi.c2068220.mytu.ui.navigations.HOME_SCREEN
 import com.akinpelumi.c2068220.mytu.ui.navigations.LOGIN_SCREEN
-import com.akinpelumi.c2068220.mytu.ui.navigations.MAIN_SCREEN
 import com.akinpelumi.c2068220.mytu.ui.navigations.SIGN_UP_SCREEN
 import com.akinpelumi.c2068220.mytu.ui.views.auth.login.LoginUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.akinpelumi.c2068220.mytu.R.string as AppText
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-  private val accountService: AccountService,
-  logService: LogService
-) : MyTUViewModel(logService), Parcelable {
+  logService: LogService, private val repo: AuthRepository
+) : MyTUViewModel(logService,repo) {
   var uiState = mutableStateOf(LoginUiState())
     private set
 
@@ -35,10 +31,17 @@ class LoginViewModel @Inject constructor(
   private val password
     get() = uiState.value.password
 
-  constructor(parcel: Parcel) : this(
-    TODO("accountService"),
-    TODO("logService")
-  ) {
+//  constructor(parcel: Parcel) : this(
+//    TODO("accountService"),
+//    TODO("logService")
+//  ) {
+//  }
+  var signInResponse by mutableStateOf<SignInResponse>(Response.Success(false))
+    private set
+
+  fun signInWithEmailAndPassword(email: String, password: String) = viewModelScope.launch {
+    signInResponse = Response.Loading
+    signInResponse = repo.firebaseSignInWithEmailAndPassword(email, password)
   }
 
   fun onEmailChange(newValue: String) {
@@ -51,11 +54,8 @@ class LoginViewModel @Inject constructor(
 fun onSignUpClick(openAndPopUp: (String, String) -> Unit) {
   openAndPopUp(SIGN_UP_SCREEN, LOGIN_SCREEN)
 }
-  fun onSignInClick(clearAndNavigate: (String) -> Unit) {
-    //val context = LocalContext.current.applicationContext
+  fun onSignInClick() {
     if (!email.isValidEmail()) {
-      //SnackbarManager.showMessage(AppText.email_error)
-      //showToast(context = , message = )
       uiState.value.userIsAuthenticated = false
       uiState.value.error = "Please Insert a valid email"
       return
@@ -67,12 +67,14 @@ fun onSignUpClick(openAndPopUp: (String, String) -> Unit) {
       uiState.value.error = "Password cannot be empty"
       return
     }
-    clearAndNavigate(MAIN_SCREEN)
-    //openAndPopUp(MAIN_SCREEN, LOGIN_SCREEN)
-//    launchCatching {
-//      accountService.authenticate(email, password)
-//      clearAndNavigate(MAIN_SCREEN)
-//    }
+    //start auth progress
+    uiState.value.inProgress = true
+    launchCatching {
+      //signInWithEmailAndPassword(email, password)
+      signInResponse = Response.Loading
+      signInResponse = repo.firebaseSignInWithEmailAndPassword(email, password)
+      //clearAndNavigate(MAIN_SCREEN)
+    }
   }
 
   fun onForgotPasswordClick() {
@@ -82,26 +84,9 @@ fun onSignUpClick(openAndPopUp: (String, String) -> Unit) {
     }
 
     launchCatching {
-      accountService.sendRecoveryEmail(email)
+      //accountService.sendRecoveryEmail(email)
       SnackbarManager.showMessage(AppText.recovery_email_sent)
     }
   }
 
-  override fun writeToParcel(parcel: Parcel, flags: Int) {
-
-  }
-
-  override fun describeContents(): Int {
-    return 0
-  }
-
-  companion object CREATOR : Parcelable.Creator<LoginViewModel> {
-    override fun createFromParcel(parcel: Parcel): LoginViewModel {
-      return LoginViewModel(parcel)
-    }
-
-    override fun newArray(size: Int): Array<LoginViewModel?> {
-      return arrayOfNulls(size)
-    }
-  }
 }

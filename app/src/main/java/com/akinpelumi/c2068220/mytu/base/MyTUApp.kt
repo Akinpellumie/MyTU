@@ -25,10 +25,10 @@ import com.akinpelumi.c2068220.mytu.ui.navigations.SIGN_UP_SCREEN
 import com.akinpelumi.c2068220.mytu.ui.navigations.SPLASH_SCREEN
 import com.akinpelumi.c2068220.mytu.ui.theme.MyTUTheme
 import com.akinpelumi.c2068220.mytu.ui.theme.customColorsPalette
-import com.akinpelumi.c2068220.mytu.ui.views.MainScreen
+import com.akinpelumi.c2068220.mytu.ui.views.base.MainScreen
 import com.akinpelumi.c2068220.mytu.ui.views.auth.login.LoginScreen
 import com.akinpelumi.c2068220.mytu.ui.views.auth.signup.SignUpScreen
-import com.akinpelumi.c2068220.mytu.ui.views.splash.SplashScreen
+//import com.akinpelumi.c2068220.mytu.ui.views.splash.SplashScreen
 import com.akinpelumi.c2068220.mytu.common.composables.PermissionDialog
 import com.akinpelumi.c2068220.mytu.common.composables.RationaleDialog
 import com.akinpelumi.c2068220.mytu.ui.navigations.ALERT_SCREEN
@@ -61,16 +61,6 @@ fun MyTUApp() {
       val appState = rememberAppState()
 
       Scaffold(
-//        snackbarHost = {
-//          SnackbarHost(
-//            hostState = it,
-//            modifier = Modifier.padding(8.dp),
-//            snackbar = { snackbarData ->
-//              Snackbar(snackbarData, contentColor = MaterialTheme.customColorsPalette.white)
-//            }
-//          )
-//        },
-        //scaffoldState = appState.scaffoldState
       ) { innerPaddingModifier ->
         NavHost(
           navController = appState.navController,
@@ -118,20 +108,16 @@ fun resources(): Resources {
 @OptIn(ExperimentalMaterial3Api::class)
 fun NavGraphBuilder.myTUGraph(appState: MyTUAppState) {
   composable(SPLASH_SCREEN) {
-    SplashScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
+    //SplashScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
   }
 
 //  composable(LOGIN_SCREEN) {
-//    LoginScreen()
+//    LoginScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) }, clearAndNavigate = { route -> appState.clearAndNavigate(route)})
 //  }
-
-  composable(LOGIN_SCREEN) {
-    LoginScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) }, clearAndNavigate = { route -> appState.clearAndNavigate(route)})
-  }
-
-  composable(SIGN_UP_SCREEN) {
-    SignUpScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
-  }
+//
+//  composable(SIGN_UP_SCREEN) {
+//    SignUpScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) }, navigateBack = { appState.navigateBack() })
+//  }
 
   composable(MAIN_SCREEN) { MainScreen() }
   composable(HOME_SCREEN) { HomeScreen(navigateTo={route-> appState.navigate(route) }) }
@@ -140,16 +126,4 @@ fun NavGraphBuilder.myTUGraph(appState: MyTUAppState) {
   composable(ATTENDANCE_SCREEN) { AttendanceScreen() }
   composable(PROFILE_SCREEN) { ProfileScreen() }
   composable(CALENDAR_SCREEN) { CalendarScreen() }
-
-//  composable(
-//    route = "$EDIT_TASK_SCREEN$TASK_ID_ARG",
-//    arguments = listOf(navArgument(TASK_ID) {
-//      nullable = true
-//      defaultValue = null
-//    })
-//  ) {
-//    EditTaskScreen(
-//      popUpScreen = { appState.popUp() }
-//    )
-//  }
 }

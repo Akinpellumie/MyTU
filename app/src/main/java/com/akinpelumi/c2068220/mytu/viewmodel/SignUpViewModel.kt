@@ -16,26 +16,30 @@ limitations under the License.
 
 package com.akinpelumi.c2068220.mytu.viewmodel
 
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.viewModelScope
 import com.akinpelumi.c2068220.mytu.common.ext.isValidEmail
 import com.akinpelumi.c2068220.mytu.common.ext.isValidPassword
 import com.akinpelumi.c2068220.mytu.common.ext.passwordMatches
 import com.akinpelumi.c2068220.mytu.common.snackbar.SnackbarManager
-import com.akinpelumi.c2068220.mytu.service.AccountService
+import com.akinpelumi.c2068220.mytu.domain.model.Response
+import com.akinpelumi.c2068220.mytu.domain.repository.AuthRepository
+import com.akinpelumi.c2068220.mytu.domain.repository.SendEmailVerificationResponse
+import com.akinpelumi.c2068220.mytu.domain.repository.SignUpResponse
 import com.akinpelumi.c2068220.mytu.service.LogService
-import com.akinpelumi.c2068220.mytu.ui.navigations.HOME_SCREEN
-import com.akinpelumi.c2068220.mytu.ui.navigations.SIGN_UP_SCREEN
 import com.akinpelumi.c2068220.mytu.ui.views.auth.signup.SignUpUiState
-import com.akinpelumi.c2068220.mytu.viewmodel.MyTUViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.akinpelumi.c2068220.mytu.R.string as AppText
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-  private val accountService: AccountService,
+  private val repo: AuthRepository,
   logService: LogService
-) : MyTUViewModel(logService) {
+) : MyTUViewModel(logService, repo) {
   var uiState = mutableStateOf(SignUpUiState())
     private set
 
@@ -55,8 +59,25 @@ class SignUpViewModel @Inject constructor(
   fun onRepeatPasswordChange(newValue: String) {
     uiState.value = uiState.value.copy(repeatPassword = newValue)
   }
+  var signUpResponse by mutableStateOf<SignUpResponse>(Response.Success(false))
+    private set
+  var sendEmailVerificationResponse by mutableStateOf<SendEmailVerificationResponse>(
+    Response.Success(
+      false
+    )
+  )
+    private set
 
-  fun onSignUpClick(openAndPopUp: (String, String) -> Unit) {
+  fun signUpWithEmailAndPassword(email: String, password: String) = viewModelScope.launch {
+    signUpResponse = Response.Loading
+    signUpResponse = repo.firebaseSignUpWithEmailAndPassword(email, password)
+  }
+
+  fun sendEmailVerification() = viewModelScope.launch {
+    sendEmailVerificationResponse = Response.Loading
+    sendEmailVerificationResponse = repo.sendEmailVerification()
+  }
+  fun onSignUpClick() {
     if (!email.isValidEmail()) {
       SnackbarManager.showMessage(AppText.email_error)
       return
@@ -73,8 +94,9 @@ class SignUpViewModel @Inject constructor(
     }
 
     launchCatching {
-      accountService.linkAccount(email, password)
-      openAndPopUp(HOME_SCREEN, SIGN_UP_SCREEN)
+      signUpResponse = Response.Loading
+      signUpResponse = repo.firebaseSignUpWithEmailAndPassword(email, password)
+      //openAndPopUp(HOME_SCREEN, SIGN_UP_SCREEN)
     }
   }
 }
