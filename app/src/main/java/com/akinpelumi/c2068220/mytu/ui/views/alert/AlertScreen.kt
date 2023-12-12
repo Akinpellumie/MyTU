@@ -339,7 +339,7 @@ fun AlertContent() {
                 text = "Note: Tasks on your To-Do list should disappear within a few hours of being resolved within source system.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.customColorsPalette.textColor,
-                modifier = Modifier.padding(start = 10.dp, top = 30.dp, end = 10.dp, bottom = 60.dp)
+                modifier = Modifier.padding(start = 10.dp, top = 30.dp, end = 10.dp, bottom = 100.dp)
             )
         }
 

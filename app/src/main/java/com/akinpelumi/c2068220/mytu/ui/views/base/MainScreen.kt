@@ -5,7 +5,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.akinpelumi.c2068220.mytu.base.rememberAppState
+import androidx.navigation.compose.rememberNavController
 import com.akinpelumi.c2068220.mytu.ui.navigations.BottomBar
 import com.akinpelumi.c2068220.mytu.ui.navigations.BottomNavGraph
 import com.akinpelumi.c2068220.mytu.ui.theme.MyTUTheme
@@ -13,23 +13,17 @@ import com.akinpelumi.c2068220.mytu.ui.theme.MyTUTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(){
-//    val navController = rememberNavController()
-//    Scaffold(
-//        bottomBar = { BottomBar(navController = navController) }
-//    ) {it
-//        BottomNavGraph(navController = navController)
-//    }
     MainScreenContent()
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreenContent(){
-    //val navController = rememberNavController()
-    val appState = rememberAppState()
+    val navController = rememberNavController()
+    //val appState = rememberAppState()
     Scaffold(
-        bottomBar = { BottomBar(navController = appState.navController) }
+        bottomBar = { BottomBar(navController = navController) }
     ) {it
-        BottomNavGraph(navController = appState.navController, appState= appState)
+        BottomNavGraph(navController = navController)
     }
 }
 

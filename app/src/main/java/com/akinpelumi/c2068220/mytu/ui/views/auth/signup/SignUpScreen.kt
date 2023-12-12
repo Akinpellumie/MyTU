@@ -33,7 +33,6 @@ import com.akinpelumi.c2068220.mytu.viewmodel.SignUpViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignUpScreen(
-  //openAndPopUp: (String, String) -> Unit,
   navigateBack: () -> Unit,
   viewModel: SignUpViewModel = hiltViewModel()
 ) {
@@ -94,7 +93,7 @@ fun SignUpScreenContent(
 ) {
   val fieldModifier = Modifier.fieldModifier()
   val keyboard = LocalSoftwareKeyboardController.current
-
+  val context = LocalContext.current
 
   Column(
     modifier = modifier
@@ -117,9 +116,13 @@ fun SignUpScreenContent(
       onClick = {
         keyboard?.hide()
         onSignUpClick()
+        if(!uiState.isValidCredentials){
+          showToastMessage(context, uiState.errorMsg)
+        }
       },
       modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
     )
+    Spacer(modifier = Modifier.height(20.dp))
     Text(
       modifier = Modifier.clickable {
         navigateBack()

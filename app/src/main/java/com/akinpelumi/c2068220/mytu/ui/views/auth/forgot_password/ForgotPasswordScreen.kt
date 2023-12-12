@@ -12,6 +12,7 @@ import com.akinpelumi.c2068220.mytu.common.ext.Utils.Companion.showToastMessage
 import com.akinpelumi.c2068220.mytu.ui.components.CustomToolbar
 import com.akinpelumi.c2068220.mytu.ui.views.auth.forgot_password.components.ForgotPassword
 import com.akinpelumi.c2068220.mytu.ui.views.auth.forgot_password.components.ForgotPasswordContent
+import com.akinpelumi.c2068220.mytu.viewmodel.ForgotPasswordViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

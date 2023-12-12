@@ -37,7 +37,7 @@ fun ForgotPasswordContent(
 
         EmailField(uiState.email, onEmailChange, fieldModifier)
         Spacer(
-            modifier = Modifier.height(10.dp)
+            modifier = Modifier.height(30.dp)
         )
         CustomButton(
             title = RESET_PASSWORD_BUTTON,

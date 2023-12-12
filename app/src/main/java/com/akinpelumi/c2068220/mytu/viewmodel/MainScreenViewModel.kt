@@ -30,7 +30,9 @@ class MainScreenViewModel @Inject constructor(
 
     val isEmailVerified get() = repo.currentUser?.isEmailVerified ?: false
 
-    fun signOut() = repo.signOut()
+    fun signOut() = viewModelScope.launch{
+        repo.signOut()
+    }
 
     fun revokeAccess() = viewModelScope.launch {
         revokeAccessResponse = Loading

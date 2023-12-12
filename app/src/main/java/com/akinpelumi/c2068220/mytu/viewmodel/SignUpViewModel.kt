@@ -1,45 +1,28 @@
-/*
-Copyright 2022 Google LLC
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    https://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
- */
-
 package com.akinpelumi.c2068220.mytu.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
+import com.akinpelumi.c2068220.mytu.common.ext.Constants.INVALID_EMAIL
+import com.akinpelumi.c2068220.mytu.common.ext.Constants.INVALID_PASSWORD
+import com.akinpelumi.c2068220.mytu.common.ext.Constants.NO_PASSWORD_MATCH
 import com.akinpelumi.c2068220.mytu.common.ext.isValidEmail
 import com.akinpelumi.c2068220.mytu.common.ext.isValidPassword
 import com.akinpelumi.c2068220.mytu.common.ext.passwordMatches
-import com.akinpelumi.c2068220.mytu.common.snackbar.SnackbarManager
 import com.akinpelumi.c2068220.mytu.domain.model.Response
 import com.akinpelumi.c2068220.mytu.domain.repository.AuthRepository
 import com.akinpelumi.c2068220.mytu.domain.repository.SendEmailVerificationResponse
 import com.akinpelumi.c2068220.mytu.domain.repository.SignUpResponse
-import com.akinpelumi.c2068220.mytu.service.LogService
 import com.akinpelumi.c2068220.mytu.ui.views.auth.signup.SignUpUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.akinpelumi.c2068220.mytu.R.string as AppText
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
   private val repo: AuthRepository,
-  logService: LogService
-) : MyTUViewModel(logService, repo) {
+) : MyTUViewModel(repo) {
   var uiState = mutableStateOf(SignUpUiState())
     private set
 
@@ -79,24 +62,25 @@ class SignUpViewModel @Inject constructor(
   }
   fun onSignUpClick() {
     if (!email.isValidEmail()) {
-      SnackbarManager.showMessage(AppText.email_error)
+      uiState.value.isValidCredentials = false
+      uiState.value.errorMsg = INVALID_EMAIL
       return
     }
 
     if (!password.isValidPassword()) {
-      SnackbarManager.showMessage(AppText.password_error)
+      uiState.value.isValidCredentials = false
+      uiState.value.errorMsg = INVALID_PASSWORD
       return
     }
 
     if (!password.passwordMatches(uiState.value.repeatPassword)) {
-      SnackbarManager.showMessage(AppText.password_match_error)
+      uiState.value.isValidCredentials = false
+      uiState.value.errorMsg = NO_PASSWORD_MATCH
       return
     }
-
     launchCatching {
       signUpResponse = Response.Loading
       signUpResponse = repo.firebaseSignUpWithEmailAndPassword(email, password)
-      //openAndPopUp(HOME_SCREEN, SIGN_UP_SCREEN)
     }
   }
 }

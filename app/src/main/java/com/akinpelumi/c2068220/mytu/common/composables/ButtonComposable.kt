@@ -10,8 +10,8 @@ import androidx.compose.ui.unit.sp
 import com.akinpelumi.c2068220.mytu.ui.theme.customColorsPalette
 
 @Composable
-fun BasicTextButton(@StringRes text: Int, modifier: Modifier, action: () -> Unit) {
-  TextButton(onClick = action, modifier = modifier) { Text(text = stringResource(text)) }
+fun BasicTextButton(text: String, modifier: Modifier, action: () -> Unit) {
+  TextButton(onClick = action, modifier = modifier) { Text(text = text) }
 }
 
 @Composable

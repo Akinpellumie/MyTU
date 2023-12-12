@@ -15,8 +15,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -26,6 +29,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
@@ -37,34 +44,31 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.akinpelumi.c2068220.mytu.R
+import com.akinpelumi.c2068220.mytu.common.composables.BasicFieldWithSupportText
+import com.akinpelumi.c2068220.mytu.common.ext.Constants
+import com.akinpelumi.c2068220.mytu.common.ext.Constants.CLASS_CODE
+import com.akinpelumi.c2068220.mytu.ui.components.CustomToolbar
 import com.akinpelumi.c2068220.mytu.ui.theme.MyTUTheme
 import com.akinpelumi.c2068220.mytu.ui.theme.customColorsPalette
+import com.akinpelumi.c2068220.mytu.ui.views.auth.login.LoginUiState
+import com.akinpelumi.c2068220.mytu.viewmodel.AttendanceViewModel
+import com.akinpelumi.c2068220.mytu.viewmodel.LoginViewModel
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AttendanceScreen() {
+fun AttendanceScreen(
+    navigateBack: () -> Unit,
+    viewModel: AttendanceViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "My Attendance",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.customColorsPalette.textColor,
-                        )},
-                navigationIcon = {
-                    // Add your logo here
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_left), // Replace with your logo resource
-                        contentDescription = "logo", // Set contentDescription to null for accessibility
-                        tint = Color.Unspecified,
-                        modifier = Modifier
-                            .width(24.dp)
-                            .height(24.dp)
-                    )
-                },
-                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = MaterialTheme.customColorsPalette.white)
+            CustomToolbar(
+                title = Constants.ATTENDANCE_SCREEN,
+                navigateBack = navigateBack
             )
         }
     ) {
@@ -78,14 +82,25 @@ fun AttendanceScreen() {
             //.padding(it) // <<-- or simply this
         ) {
             // screen content
-            AttendanceScreenContent()
+            AttendanceScreenContent(
+                onClassCodeChange = viewModel::onClassCodeChange,
+                uiState = uiState,
+                onRegisterClick = { viewModel.onRegisterClickDelay() }
+                )
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AttendanceScreenContent() {
+fun AttendanceScreenContent(
+    onClassCodeChange: (String) -> Unit,
+    uiState: AttendanceUiState,
+    onRegisterClick: () -> Unit
+    ) {
+    val maxChar = 4
+    var isRegistered by remember { mutableStateOf (false) }
+    var inProgress by remember { mutableStateOf (false) }
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 10.dp, vertical = 5.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)){
@@ -264,27 +279,64 @@ fun AttendanceScreenContent() {
                             style = MaterialTheme.typography.bodyMedium,
                         )
                     }
-                    OutlinedTextField(
-                        modifier = Modifier.width(200.dp),
-                        value = "",
-                        onValueChange = {},
-                        singleLine = true,
-                        placeholder = { Text(text = "Verification Code")}
-                    )
-                    Button(
-                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.customColorsPalette.accentColor),
-                        shape = RoundedCornerShape(10.dp),
-                        modifier = Modifier.width(230.dp).height(40.dp),
-                        onClick = {
-                            //goto outlook mail
-                        }) {
-                        Text(
-                            text = "Register",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.customColorsPalette.white,
-                            fontWeight = FontWeight.Normal,
-                        )
+                    Column {
+                        if(isRegistered){
+                            Row {
+                                Text(
+                                    text = "Registered ",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.customColorsPalette.greenColor
+                                )
+                                Icon(
+                                    imageVector = Icons.Filled.CheckCircle,
+                                    contentDescription = null,
+                                    modifier = Modifier.height(20.dp).width(20.dp),
+                                    tint = MaterialTheme.customColorsPalette.greenColor
+                                )
+                            }
+                        }
+                        else{
+                            Row {
+                                BasicFieldWithSupportText(
+                                    CLASS_CODE,
+                                    maxChar,
+                                    uiState.classCode,
+                                    onClassCodeChange,
+                                    Modifier
+                                        .width(200.dp)
+                                        .padding(16.dp, 4.dp),
+                                )
+                                if (inProgress) {
+                                    //show progress bar
+                                    CircularProgressIndicator()
+                                }
+                            }
+                        }
                     }
+                    if(!isRegistered){
+                        Button(
+                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.customColorsPalette.accentColor),
+                            shape = RoundedCornerShape(10.dp),
+                            modifier = Modifier
+                                .width(230.dp)
+                                .height(40.dp),
+                            onClick = {
+                                //handle class code registration
+                                inProgress = !inProgress
+                                onRegisterClick()
+                                isRegistered = !isRegistered
+                                inProgress = !inProgress
+                            }) {
+                            Text(
+                                text = "Register",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.customColorsPalette.white,
+                                fontWeight = FontWeight.Normal,
+                            )
+                        }
+                    }
+
                 }
             }
         } }
@@ -298,6 +350,6 @@ fun AttendanceScreenContent() {
 @Composable
 fun AttendanceScreenPreview() {
     MyTUTheme {
-        AttendanceScreen()
+        AttendanceScreen(navigateBack = {})
     }
 }

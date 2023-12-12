@@ -1,5 +1,6 @@
 package com.akinpelumi.c2068220.mytu.ui.views.profile
 
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -34,14 +35,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.akinpelumi.c2068220.mytu.R
+import com.akinpelumi.c2068220.mytu.common.ext.Constants
 import com.akinpelumi.c2068220.mytu.ui.components.CustomAppBarPreview
+import com.akinpelumi.c2068220.mytu.ui.components.CustomButton
 import com.akinpelumi.c2068220.mytu.ui.theme.MyTUTheme
 import com.akinpelumi.c2068220.mytu.ui.theme.customColorsPalette
+import com.akinpelumi.c2068220.mytu.viewmodel.ProfileViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileScreen(modifier: Modifier = Modifier){
+fun ProfileScreen(
+    navigateTo: (String) -> Unit,
+    viewModel: ProfileViewModel = hiltViewModel()
+){
     Scaffold(
         topBar = { CustomAppBarPreview() },
     ) {
@@ -55,14 +64,24 @@ fun ProfileScreen(modifier: Modifier = Modifier){
             //.padding(it) // <<-- or simply this
         ) {
             // Your content
-            ProfileContent()
+            ProfileContent(
+                displayName = viewModel.userDisplayName ?: "Your display name",
+                email = viewModel.userEmail ?: "your email address",
+                imageUrl = viewModel.profileImageUrl ?: Uri.EMPTY,
+                onEditProfileClick = {viewModel.onEditProfileClick(navigateTo)}
+            )
         }
     }
 }
 
 
 @Composable
-fun ProfileContent() {
+fun ProfileContent(
+    displayName: String,
+    email: String,
+    imageUrl: Uri,
+    onEditProfileClick: () -> Unit,
+) {
     LazyColumn(
         contentPadding = PaddingValues(vertical = 5.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -78,16 +97,32 @@ fun ProfileContent() {
                     )
                     .height(100.dp) //your height for the container
             ){
-                Image(
-                    painter = painterResource(R.drawable.ic_pro_dp),
-                    contentDescription = "avatar",
-                    contentScale = ContentScale.FillBounds,            // crop the image if it's not a square
-                    modifier = Modifier
-                        .size(100.dp)
-                        .align(Alignment.BottomCenter)
-                        .clip(CircleShape)
-                        .border(2.dp, Color.White, CircleShape)   // add a border (optional)
-                )
+                if(imageUrl != Uri.EMPTY){
+                    AsyncImage(
+                        model = imageUrl,
+                        placeholder = painterResource(id = R.drawable.ic_placeholder),
+                        error = painterResource(id = R.drawable.ic_placeholder),
+                        contentDescription = null,
+                        contentScale = ContentScale.FillBounds,            // crop the image if it's not a square
+                        modifier = Modifier
+                            .size(100.dp)
+                            .align(Alignment.BottomCenter)
+                            .clip(CircleShape)
+                            .border(2.dp, Color.White, CircleShape)
+                    )
+                }
+                else{
+                    Image(
+                        painter = painterResource(R.drawable.ic_placeholder),
+                        contentDescription = "avatar",
+                        contentScale = ContentScale.FillBounds,            // crop the image if it's not a square
+                        modifier = Modifier
+                            .size(100.dp)
+                            .align(Alignment.BottomCenter)
+                            .clip(CircleShape)
+                            .border(2.dp, Color.White, CircleShape)   // add a border (optional)
+                    )
+                }
             }
 
         }
@@ -97,16 +132,18 @@ fun ProfileContent() {
                 .fillMaxWidth()
                 .wrapContentSize(Alignment.Center)
             ){
+                Spacer(modifier = Modifier.height(20.dp))
                 Text(
-                    text = "Akinpelumi Akinlade".uppercase(),
+                    text = displayName.uppercase(),
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.customColorsPalette.textColor,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
                 )
+                Spacer(modifier = Modifier.height(20.dp))
                 Text(
-                    text = "c2068220".uppercase(),
+                    text = email.uppercase(),
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.customColorsPalette.textColor,
                     fontWeight = FontWeight.Bold,
@@ -155,7 +192,7 @@ fun ProfileContent() {
                                 fontWeight = FontWeight.Bold,
                             )
                             Text(
-                                text = "Akinpelumi Akinlade".uppercase(),
+                                text = displayName.uppercase(),
                                 style = MaterialTheme.typography.titleMedium,
                                 color = MaterialTheme.customColorsPalette.textColor,
                                 fontWeight = FontWeight.Normal,
@@ -180,7 +217,7 @@ fun ProfileContent() {
                                 fontWeight = FontWeight.Bold,
                             )
                             Text(
-                                text = "C2068220@live.tees.ac.uk",
+                                text = email,
                                 style = MaterialTheme.typography.titleMedium,
                                 color = MaterialTheme.customColorsPalette.textColor,
                                 fontWeight = FontWeight.Normal,
@@ -234,6 +271,17 @@ fun ProfileContent() {
 
             }
         }
+        item{
+            CustomButton(
+                title = Constants.EDIT_INFO,
+                onClick = {
+                    onEditProfileClick()
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp, top = 20.dp)
+            )
+        }
     }
 }
 
@@ -241,6 +289,6 @@ fun ProfileContent() {
 @Composable
 fun ProfilePreview() {
     MyTUTheme {
-        ProfileScreen()
+        ProfileScreen(navigateTo = {})
     }
 }

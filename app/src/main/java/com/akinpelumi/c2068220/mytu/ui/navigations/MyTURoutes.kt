@@ -1,13 +1,13 @@
 package com.akinpelumi.c2068220.mytu.ui.navigations
 
 
-const val SPLASH_SCREEN = "SplashScreen"
 const val MAIN_SCREEN = "MainScreen"
 const val LOGIN_SCREEN = "LoginScreen"
 const val SIGN_UP_SCREEN = "SignUpScreen"
 const val FORGOT_PASSWORD_SCREEN = "ForgotPasswordScreen"
 const val HOME_SCREEN = "HomeScreen"
 const val ATTENDANCE_SCREEN = "AttendanceScreen"
+const val EDIT_PROFILE_SCREEN = "EditProfileScreen"
 const val TIMETABLE_SCREEN = "TimetableScreen"
 const val BALANCE_SCREEN = "BalanceScreen"
 const val LIBRARY_SCREEN = "LibraryScreen"

@@ -15,8 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.akinpelumi.c2068220.mytu.R
+import com.akinpelumi.c2068220.mytu.common.composables.BasicTextButton
 import com.akinpelumi.c2068220.mytu.common.ext.Constants.ALREADY_VERIFIED
 import com.akinpelumi.c2068220.mytu.common.ext.Constants.SPAM_EMAIL
+import com.akinpelumi.c2068220.mytu.common.ext.textButton
 
 @Composable
 fun VerifyEmailContent(
@@ -28,14 +31,17 @@ fun VerifyEmailContent(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            modifier = Modifier.clickable {
-                reloadUser()
-            },
-            text = ALREADY_VERIFIED,
-            fontSize = 16.sp,
-            textDecoration = TextDecoration.Underline
-        )
+        BasicTextButton(ALREADY_VERIFIED, Modifier.textButton()) {
+            reloadUser()
+        }
+//        Text(
+//            modifier = Modifier.clickable {
+//                reloadUser()
+//            },
+//            text = ALREADY_VERIFIED,
+//            fontSize = 16.sp,
+//            textDecoration = TextDecoration.Underline
+//        )
         Spacer(
             modifier = Modifier.height(10.dp)
         )

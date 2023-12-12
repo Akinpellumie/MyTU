@@ -35,7 +35,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import com.akinpelumi.c2068220.mytu.showToast
+import com.akinpelumi.c2068220.mytu.common.ext.Utils.Companion.showToastMessage
 import com.akinpelumi.c2068220.mytu.ui.components.CustomAppBarPreview
 import com.akinpelumi.c2068220.mytu.ui.theme.MyTUTheme
 import com.akinpelumi.c2068220.mytu.ui.theme.customColorsPalette
@@ -97,7 +97,7 @@ fun MailContent() {
                 }
             )
                 if(showWebView) {
-                    showToast(context = context, message = "click to open outlook" )
+                    showToastMessage(context = context, message = "click to open outlook" )
                 }
 
         }
@@ -175,7 +175,7 @@ fun MailContent() {
         }
 
         if(openTeesHelp) {
-            showToast(context = context, message = "opening tees.ac.uk website." )
+            showToastMessage(context = context, message = "opening tees.ac.uk website." )
         }
     }
         item {  Spacer(modifier = Modifier.height(20.dp))  }

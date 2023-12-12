@@ -3,6 +3,7 @@ package com.akinpelumi.c2068220.mytu.ui.components
 import android.annotation.SuppressLint
 import androidx.annotation.ColorRes
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -20,16 +21,29 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.akinpelumi.c2068220.mytu.R
+import com.akinpelumi.c2068220.mytu.common.ext.Utils.Companion.showToastMessage
 import com.akinpelumi.c2068220.mytu.ui.theme.customColorsPalette
+import com.akinpelumi.c2068220.mytu.viewmodel.LoginViewModel
+import com.akinpelumi.c2068220.mytu.viewmodel.MainScreenViewModel
 
-@SuppressLint("CoroutineCreationDuringComposition")
+@Composable
+fun CustomAppBar(
+    viewModel: MainScreenViewModel = hiltViewModel()
+) {
+    CustomAppBarContent { viewModel.signOut() }
+}
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomAppBar() {
+fun CustomAppBarContent(
+    signOutClick: () -> Unit
+){
+    val context = LocalContext.current
     TopAppBar(
         title = {},
         navigationIcon = {
@@ -38,18 +52,27 @@ fun CustomAppBar() {
                 painter = painterResource(id = R.drawable.ic_tu_logo), // Replace with your logo resource
                 contentDescription = "logo", // Set contentDescription to null for accessibility
                 tint = Color.Unspecified,
-                modifier = Modifier.width(150.dp).height(45.dp)
+                modifier = Modifier
+                    .width(150.dp)
+                    .height(45.dp)
             )
         },
         actions = {
             // Add the logout icon to the right
-            Icon(
-                painter = painterResource(id = R.drawable.ic_logout), // Replace with your logout icon resource
-                contentDescription = "Logout",
-                modifier = Modifier.clickable {
-                    // Handle logout click
+            IconButton(
+                onClick = {
+                    signOutClick()
+                    showToastMessage(context,"Current user logged out.")
                 }
-            )
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_logout), // Replace with your logout icon resource
+                    contentDescription = "Logout",
+//                    modifier = Modifier.clickable {
+//                        // Handle logout click
+//                    }
+                )
+            }
         },
         colors =TopAppBarDefaults.smallTopAppBarColors(containerColor = MaterialTheme.customColorsPalette.white)
     )

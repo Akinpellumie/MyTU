@@ -29,4 +29,7 @@
     <string name="request_location_permission">Request permission</string>
     <string name="location_permission_description">The location permission is important for this app. Please grant the permission.</string>
     <string name="location_permission_settings">The location permission is important for this app. Please navigate to your device settings and enable location for MyTU.</string>
+
+
+    <string name="default_web_client_id">1006781693646-t8g0fb6nqcir1as25e61488tuhva98ju.apps.googleusercontent.com</string>
 </resources>

@@ -24,34 +24,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.akinpelumi.c2068220.mytu.R
+import com.akinpelumi.c2068220.mytu.common.ext.Constants
+import com.akinpelumi.c2068220.mytu.ui.components.CustomToolbar
 import com.akinpelumi.c2068220.mytu.ui.theme.MyTUTheme
 import com.akinpelumi.c2068220.mytu.ui.theme.customColorsPalette
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ModuleScreen() {
+fun ModuleScreen(navigateBack: () -> Unit) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Modules",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.customColorsPalette.textColor,
-                    )
-                },
-                navigationIcon = {
-                    // Add your logo here
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_left), // Replace with your logo resource
-                        contentDescription = "logo", // Set contentDescription to null for accessibility
-                        tint = Color.Unspecified,
-                        modifier = Modifier
-                            .width(24.dp)
-                            .height(24.dp)
-                    )
-                },
-                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = MaterialTheme.customColorsPalette.white)
+            CustomToolbar(
+                title = Constants.MODULE_SCREEN,
+                navigateBack = navigateBack
             )
         }
     ) {
@@ -95,6 +80,6 @@ fun ModuleScreenContent(){
 @Composable
 fun TimeTableScreenPreview() {
     MyTUTheme {
-        ModuleScreen()
+        ModuleScreen(navigateBack = {})
     }
 }

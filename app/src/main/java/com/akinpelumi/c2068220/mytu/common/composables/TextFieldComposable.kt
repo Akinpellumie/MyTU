@@ -2,6 +2,7 @@
 package com.akinpelumi.c2068220.mytu.common.composables
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
@@ -14,13 +15,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import com.akinpelumi.c2068220.mytu.R.drawable as AppIcon
 import com.akinpelumi.c2068220.mytu.R.string as AppText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BasicField(
-  @StringRes text: Int,
+  text: String,
   value: String,
   onNewValue: (String) -> Unit,
   modifier: Modifier = Modifier
@@ -30,7 +32,30 @@ fun BasicField(
     modifier = modifier,
     value = value,
     onValueChange = { onNewValue(it) },
-    placeholder = { Text(stringResource(text)) }
+    placeholder = { Text(text) }
+  )
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun BasicFieldWithSupportText(
+  text: String,
+  maxChar: Int,
+  value: String,
+  onNewValue: (String) -> Unit,
+  modifier: Modifier = Modifier
+) {
+  OutlinedTextField(
+    value = value,
+    onValueChange = { onNewValue(it.take(maxChar)) },
+    modifier = modifier,
+    placeholder = { Text(text) },
+    supportingText = {
+      Text(
+        text = "${value.length} / $maxChar",
+        modifier = Modifier.fillMaxWidth(),
+        textAlign = TextAlign.Start,
+      )
+    },
   )
 }
 

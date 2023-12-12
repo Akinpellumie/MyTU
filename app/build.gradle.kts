@@ -77,6 +77,18 @@ dependencies {
     //accompanist sdk for permission request and status...
     implementation("com.google.accompanist:accompanist-permissions:0.30.1")
 
+    // CameraX
+    //def camerax_version = "1.0.1"
+    implementation("androidx.camera:camera-camera2:1.3.0")
+    implementation("androidx.camera:camera-lifecycle:1.3.0")
+    implementation("androidx.camera:camera-view:1.4.0-alpha02")
+
+// Icons
+    implementation("androidx.compose.material:material-icons-extended")
+
+    //load image from URL
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
     //hilt injection
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
     implementation("androidx.preference:preference-ktx:1.2.1")

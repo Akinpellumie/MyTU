@@ -1,5 +1,7 @@
 package com.akinpelumi.c2068220.mytu.domain.repository
 
+import android.app.Activity
+import android.net.Uri
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow
@@ -8,6 +10,7 @@ import com.akinpelumi.c2068220.mytu.domain.model.Response
 typealias SignUpResponse = Response<Boolean>
 typealias SendEmailVerificationResponse = Response<Boolean>
 typealias SignInResponse = Response<Boolean>
+typealias UpdateUserResponse = Response<Boolean>
 typealias ReloadUserResponse = Response<Boolean>
 typealias SendPasswordResetEmailResponse = Response<Boolean>
 typealias RevokeAccessResponse = Response<Boolean>
@@ -21,8 +24,10 @@ interface AuthRepository {
     suspend fun sendEmailVerification(): SendEmailVerificationResponse
 
     suspend fun firebaseSignInWithEmailAndPassword(email: String, password: String): SignInResponse
+    suspend fun firebaseSignInWithMicrosoft(activity: Activity): SignInResponse
 
     suspend fun reloadFirebaseUser(): ReloadUserResponse
+    suspend fun firebaseUpdateUserProfile(fullName: String, imageUri: Uri) : UpdateUserResponse
 
     suspend fun sendPasswordResetEmail(email: String): SendPasswordResetEmailResponse
 

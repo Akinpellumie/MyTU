@@ -27,7 +27,7 @@ fun CustomToolbar(title: String, navigateBack: () -> Unit){
         },
         navigationIcon = {
             IconButton(
-                onClick = navigateBack
+                onClick = { navigateBack() }
             ) {
                 Icon(
                     imageVector = Icons.Outlined.ArrowBack,

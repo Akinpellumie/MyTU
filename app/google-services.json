@@ -12,7 +12,20 @@
           "package_name": "com.akinpelumi.c2068220.mytu"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1006781693646-tem5rqn9md4j5f4a5m9i7eivh89jif1s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.akinpelumi.c2068220.mytu",
+            "certificate_hash": "ef99ccc11e5d66980008cdc8f4ec4486748a935a"
+          }
+        },
+        {
+          "client_id": "1006781693646-t8g0fb6nqcir1as25e61488tuhva98ju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyClNFgBlDgrZEoDM4h6FoKMiA1rGidbFvM"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006781693646-t8g0fb6nqcir1as25e61488tuhva98ju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
