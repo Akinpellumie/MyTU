@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.akinpelumi.c2068220.mytu.ui.views.calendar.CalendarWebViewScreen
+import com.akinpelumi.c2068220.mytu.ui.views.mail.MailWebViewScreen
 import com.akinpelumi.c2068220.mytu.ui.views.alert.AlertScreen
 import com.akinpelumi.c2068220.mytu.ui.views.attendance.AttendanceScreen
 import com.akinpelumi.c2068220.mytu.ui.views.balances.BalanceScreen
@@ -13,7 +15,6 @@ import com.akinpelumi.c2068220.mytu.ui.views.library.LibraryScreen
 import com.akinpelumi.c2068220.mytu.ui.views.mail.MailScreen
 import com.akinpelumi.c2068220.mytu.ui.views.modules.ModuleScreen
 import com.akinpelumi.c2068220.mytu.ui.views.profile.EditProfileScreen
-import com.akinpelumi.c2068220.mytu.ui.views.profile.EditProfileScreenPreview
 import com.akinpelumi.c2068220.mytu.ui.views.profile.ProfileScreen
 import com.akinpelumi.c2068220.mytu.ui.views.timetable.TimeTableScreen
 import com.akinpelumi.c2068220.mytu.ui.views.todo.ToDoScreen
@@ -28,10 +29,10 @@ fun BottomNavGraph(navController: NavHostController) {
             HomeScreen(navigateTo={route -> navController.navigate(route) })
         }
         composable(route = BottomBarScreen.Mail.route){
-            MailScreen()
+            MailScreen(navigateTo={route -> navController.navigate(route) })
         }
         composable(route = BottomBarScreen.Calendar.route){
-            CalendarScreen()
+            CalendarScreen(navigateTo={route -> navController.navigate(route) })
         }
         composable(route = BottomBarScreen.Alert.route){
             AlertScreen()
@@ -39,13 +40,6 @@ fun BottomNavGraph(navController: NavHostController) {
         composable(route = BottomBarScreen.Profile.route){
             ProfileScreen(navigateTo={route -> navController.navigate(route) })
         }
-//        composable(ATTENDANCE_SCREEN) { AttendanceScreen() }
-//        composable(TIMETABLE_SCREEN) { TimeTableScreen() }
-//        composable(EDIT_PROFILE_SCREEN) { EditProfileScreenPreview() }
-//        composable(MODULE_SCREEN) { ModuleScreen() }
-//        composable(LIBRARY_SCREEN) { LibraryScreen() }
-//        composable(BALANCE_SCREEN) { BalanceScreen() }
-//        composable(TODO_SCREEN) { ToDoScreen() }
         composable(
             route = AppBaseScreen.EditProfileScreen.route
         ) {
@@ -108,6 +102,16 @@ fun BottomNavGraph(navController: NavHostController) {
                     navController.popBackStack()
                 }
             )
+        }
+        composable(
+            route = AppBaseScreen.CalendarWebViewScreen.route
+        ) {
+            CalendarWebViewScreen ()
+        }
+        composable(
+            route = AppBaseScreen.MailWebViewScreen.route
+        ) {
+            MailWebViewScreen ()
         }
     }
 }

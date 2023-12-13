@@ -5,17 +5,13 @@ import android.app.Activity
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.viewModelScope
 import com.akinpelumi.c2068220.mytu.common.ext.isValidEmail
-import com.akinpelumi.c2068220.mytu.common.snackbar.SnackbarManager
 import com.akinpelumi.c2068220.mytu.domain.model.Response
 import com.akinpelumi.c2068220.mytu.domain.repository.AuthRepository
 import com.akinpelumi.c2068220.mytu.domain.repository.SignInResponse
 import com.akinpelumi.c2068220.mytu.ui.views.auth.login.LoginUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.akinpelumi.c2068220.mytu.R.string as AppText
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val repo: AuthRepository

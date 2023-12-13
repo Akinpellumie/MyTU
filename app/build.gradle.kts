@@ -86,6 +86,7 @@ dependencies {
 // Icons
     implementation("androidx.compose.material:material-icons-extended")
 
+
     //load image from URL
     implementation("io.coil-kt:coil-compose:2.4.0")
 

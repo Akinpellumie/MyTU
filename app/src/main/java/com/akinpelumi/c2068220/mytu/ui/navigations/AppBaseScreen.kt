@@ -14,4 +14,6 @@ sealed class AppBaseScreen(val route: String) {
     object BalanceScreen: AppBaseScreen(BALANCE_SCREEN)
     object LibraryScreen: AppBaseScreen(LIBRARY_SCREEN)
     object ModuleScreen: AppBaseScreen(MODULE_SCREEN)
+    object CalendarWebViewScreen: AppBaseScreen(CALENDAR_WEBVIEW_SCREEN)
+    object MailWebViewScreen: AppBaseScreen(MAIL_WEBVIEW_SCREEN)
 }

@@ -5,6 +5,8 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.akinpelumi.c2068220.mytu.ui.views.calendar.CalendarWebViewScreen
+import com.akinpelumi.c2068220.mytu.ui.views.mail.MailWebViewScreen
 import com.akinpelumi.c2068220.mytu.ui.views.attendance.AttendanceScreen
 import com.akinpelumi.c2068220.mytu.ui.views.auth.forgot_password.ForgotPasswordScreen
 import com.akinpelumi.c2068220.mytu.ui.views.auth.login.LoginScreen
@@ -139,6 +141,16 @@ fun AppNavGraph(
                     navController.popBackStack()
                 }
             )
+        }
+        composable(
+            route = AppBaseScreen.CalendarWebViewScreen.route
+        ) {
+            CalendarWebViewScreen ()
+        }
+        composable(
+            route = AppBaseScreen.MailWebViewScreen.route
+        ) {
+            MailWebViewScreen ()
         }
     }
 }

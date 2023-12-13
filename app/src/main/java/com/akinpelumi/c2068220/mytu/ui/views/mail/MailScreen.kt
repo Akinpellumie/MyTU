@@ -35,15 +35,20 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.akinpelumi.c2068220.mytu.common.ext.Utils.Companion.showToastMessage
 import com.akinpelumi.c2068220.mytu.ui.components.CustomAppBarPreview
 import com.akinpelumi.c2068220.mytu.ui.theme.MyTUTheme
 import com.akinpelumi.c2068220.mytu.ui.theme.customColorsPalette
+import com.akinpelumi.c2068220.mytu.viewmodel.MainScreenViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MailScreen(modifier: Modifier = Modifier){
+fun MailScreen(
+    navigateTo: (String) -> Unit,
+    viewModel: MainScreenViewModel = hiltViewModel()
+){
     Scaffold(
         topBar = { CustomAppBarPreview() },
     ) {
@@ -57,14 +62,14 @@ fun MailScreen(modifier: Modifier = Modifier){
             //.padding(it) // <<-- or simply this
         ) {
             // Your content
-            MailContent()
+            MailContent(onWebviewClick = {viewModel.onMailWebviewClick(navigateTo)})
         }
     }
 }
 
 
 @Composable
-fun MailContent() {
+fun MailContent(onWebviewClick: () -> Unit) {
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 10.dp, vertical = 5.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -184,9 +189,9 @@ fun MailContent() {
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.customColorsPalette.primaryColor),
                 shape = RoundedCornerShape(10.dp),
                 modifier = Modifier.fillMaxWidth(),
-                onClick = {
-                //goto outlook mail 
-                }) {
+                onClick =
+                {onWebviewClick() }
+                ) {
                 Text(
                     text = "Go To MyMail",
                     color = MaterialTheme.customColorsPalette.white,
@@ -201,6 +206,6 @@ fun MailContent() {
 @Composable
 fun MyMailPreview() {
     MyTUTheme {
-        MailScreen()
+        MailScreen(navigateTo = {})
     }
 }

@@ -160,14 +160,14 @@ fun HomeScreenContent(
                                                 modifier = Modifier.padding(8.dp)
                                             )
                                             Card(
-                                                colors= CardDefaults.cardColors(containerColor = MaterialTheme.customColorsPalette.iconBgColor),
+                                                colors= CardDefaults.cardColors(containerColor = MaterialTheme.customColorsPalette.primaryColor),
                                                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                                                 shape = RoundedCornerShape(corner = CornerSize(5.dp)),
                                                 modifier = Modifier.align(alignment = Alignment.CenterVertically)
 
                                             ){
                                                 Text(
-                                                    text = "2",
+                                                    text = "1",
                                                     style = typography.titleMedium,
                                                     color = MaterialTheme.customColorsPalette.white,
                                                     modifier = Modifier

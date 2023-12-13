@@ -23,14 +23,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.akinpelumi.c2068220.mytu.ui.components.CustomAppBarPreview
 import com.akinpelumi.c2068220.mytu.ui.theme.MyTUTheme
 import com.akinpelumi.c2068220.mytu.ui.theme.customColorsPalette
+import com.akinpelumi.c2068220.mytu.viewmodel.HomeViewModel
+import com.akinpelumi.c2068220.mytu.viewmodel.MainScreenViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CalendarScreen(modifier: Modifier = Modifier){
+fun CalendarScreen(
+    navigateTo: (String) -> Unit,
+    viewModel: MainScreenViewModel = hiltViewModel()
+){
+    val url = "https://outlook.office.com/calendar/view/workweek"
     Scaffold(
         topBar = { CustomAppBarPreview() },
     ) {
@@ -44,14 +51,15 @@ fun CalendarScreen(modifier: Modifier = Modifier){
             //.padding(it) // <<-- or simply this
         ) {
             // Your content
-            CalendarContent()
+            CalendarContent(
+                onWebviewClick = {viewModel.onCalendarWebviewClick(navigateTo)})
         }
     }
 }
 
 
 @Composable
-fun CalendarContent() {
+fun CalendarContent(onWebviewClick: () -> Unit) {
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 10.dp, vertical = 5.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -74,6 +82,7 @@ fun CalendarContent() {
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
                     //goto outlook mail
+                    onWebviewClick()
                 }) {
                 Text(
                     text = "Go To MyCalendar",
@@ -89,6 +98,6 @@ fun CalendarContent() {
 @Composable
 fun CalendarScreenPreview() {
     MyTUTheme {
-        CalendarScreen()
+        CalendarScreen(navigateTo = {})
     }
 }
