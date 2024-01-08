@@ -137,8 +137,8 @@ val context = LocalContext.current
       colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.customColorsPalette.accentColor)
     ){
       Icon(
-        painter = painterResource(id = R.drawable.ic_google),
-        contentDescription = "google",
+        painter = painterResource(id = R.drawable.ic_microsoft),
+        contentDescription = null,
         tint = Color.Unspecified,
         modifier = Modifier
           .width(40.dp)

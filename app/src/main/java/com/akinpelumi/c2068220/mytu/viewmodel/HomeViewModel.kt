@@ -1,6 +1,7 @@
 package com.akinpelumi.c2068220.mytu.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.akinpelumi.c2068220.mytu.domain.repository.AuthRepository
 import com.akinpelumi.c2068220.mytu.ui.navigations.ATTENDANCE_SCREEN
 import com.akinpelumi.c2068220.mytu.ui.navigations.BALANCE_SCREEN
 import com.akinpelumi.c2068220.mytu.ui.navigations.LIBRARY_SCREEN
@@ -12,7 +13,11 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val repo: AuthRepository,
+) : MyTUViewModel(repo) {
+    val userDisplayName get() = repo.currentUser?.displayName
+    val userEmail get() = repo.currentUser?.email
     fun onMyAttendanceClick(navigateTo: (String) -> Unit) {
         navigateTo(ATTENDANCE_SCREEN)
     }

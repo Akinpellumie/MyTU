@@ -74,14 +74,6 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-perf")
 
-    //accompanist sdk for permission request and status...
-    implementation("com.google.accompanist:accompanist-permissions:0.30.1")
-
-    // CameraX
-    //def camerax_version = "1.0.1"
-    implementation("androidx.camera:camera-camera2:1.3.0")
-    implementation("androidx.camera:camera-lifecycle:1.3.0")
-    implementation("androidx.camera:camera-view:1.4.0-alpha02")
 
 // Icons
     implementation("androidx.compose.material:material-icons-extended")

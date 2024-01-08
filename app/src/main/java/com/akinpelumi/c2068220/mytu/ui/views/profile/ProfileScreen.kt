@@ -63,9 +63,10 @@ fun ProfileScreen(
                 )
             //.padding(it) // <<-- or simply this
         ) {
+            val disName = if(!viewModel.userDisplayName.isNullOrEmpty()) viewModel.userDisplayName else "Your display name"
             // Your content
             ProfileContent(
-                displayName = viewModel.userDisplayName ?: "Your display name",
+                displayName = disName!!,
                 email = viewModel.userEmail ?: "your email address",
                 imageUrl = viewModel.profileImageUrl ?: Uri.EMPTY,
                 onEditProfileClick = {viewModel.onEditProfileClick(navigateTo)}

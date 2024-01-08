@@ -58,7 +58,9 @@ fun HomeScreen(
     navigateTo: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
+    val disName = if(!viewModel.userDisplayName.isNullOrEmpty()) viewModel.userDisplayName else viewModel.userEmail
     HomeScreenContent(
+        displayName = disName!!,
         onAttendanceClick = {viewModel.onMyAttendanceClick(navigateTo)},
         onTimetableClick = {viewModel.onTimetableClick(navigateTo)},
         onLibraryClick = {viewModel.onLibraryClick(navigateTo)},
@@ -87,6 +89,7 @@ fun HomeScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreenContent(
+    displayName: String,
     onAttendanceClick: () -> Unit,
     onTimetableClick: () -> Unit,
     onLibraryClick: () -> Unit,
@@ -117,7 +120,8 @@ fun HomeScreenContent(
                             color = MaterialTheme.customColorsPalette.textColor,
                             //modifier = Modifier.padding(vertical = 5.dp)
                         )
-                        Text(text = "Akinlade, Akinpelumi",
+                        Text(
+                            text = displayName,
                             style = typography.titleMedium,
                             color = MaterialTheme.customColorsPalette.textColor,
                             fontWeight = FontWeight.Bold,
@@ -458,6 +462,7 @@ fun HomeScreenContent(
 fun HomePreview() {
     MyTUTheme {
         HomeScreenContent(
+            displayName = "Display Name",
             onAttendanceClick = {},
             onTimetableClick = {},
             onLibraryClick = {},

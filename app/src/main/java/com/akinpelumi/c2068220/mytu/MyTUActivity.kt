@@ -34,7 +34,7 @@ class MyTUActivity : AppCompatActivity() {
       )
       AuthState()
     }
-    requestCameraPermission()
+    requestLocationPermission()
   }
 
   @Composable
@@ -95,6 +95,23 @@ class MyTUActivity : AppCompatActivity() {
       ) ->  println("myTUApp -->> Show camera permissions dialog")
 
       else -> requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+    }
+  }
+  private fun requestLocationPermission() {
+    when {
+      ContextCompat.checkSelfPermission(
+        this,
+        Manifest.permission.ACCESS_FINE_LOCATION
+      ) == PackageManager.PERMISSION_GRANTED -> {
+        println("myTUApp -->> Permission previously granted")
+      }
+
+      ActivityCompat.shouldShowRequestPermissionRationale(
+        this,
+        Manifest.permission.ACCESS_FINE_LOCATION
+      ) ->  println("myTUApp -->> Show location permissions dialog")
+
+      else -> requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }
   }
 }
